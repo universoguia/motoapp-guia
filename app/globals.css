@@ -1,0 +1,22 @@
+/* Estilos globales portados del bloque <helmet> de legacy/index.html (v0.0.7). */
+@import 'leaflet/dist/leaflet.css';
+@import 'leaflet.markercluster/dist/MarkerCluster.css';
+@import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+
+html, body { margin: 0; background: #0B0D10; height: 100%; overflow: hidden; overscroll-behavior: none; position: fixed; inset: 0; width: 100%; }
+.leaflet-popup-content { margin: 0; width: 214px !important; font-family: inherit; }
+.leaflet-popup-content-wrapper { padding: 0; overflow: hidden; border-radius: 14px; }
+.lp-foto { position: relative; height: 108px; }
+.lp-foto > span { position: absolute; inset: 0; background-size: cover; background-position: center; display: block; }
+.lp-cuerpo { padding: 10px 12px 12px; }
+.lp-title { font-weight: 700; font-size: 13.5px; margin-bottom: 2px; color: #14171B; }
+.lp-price { font-size: 12.5px; color: #6E747C; margin-bottom: 7px; }
+.lp-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; background: #E10600; color: #fff; border: none; border-radius: 10px; padding: 0 18px; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer; }
+.lp-btn:focus-visible { outline: 2px solid #14171B; outline-offset: 2px; }
+.cluster-bubble { display: flex; align-items: center; justify-content: center; background: #0E1013; color: #fff; border: 2.5px solid #E10600; border-radius: 50%; font-weight: 700; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+.marker-cluster-small, .marker-cluster-medium, .marker-cluster-large { background: transparent; }
+.marker-cluster-small div, .marker-cluster-medium div, .marker-cluster-large div { background: transparent; }
+a { color: #E10600; text-decoration: none; }
+a:hover { color: #B00500; }
+[data-scroll]::-webkit-scrollbar { display: none; }
+@keyframes moto-giro { to { transform: rotate(360deg); } }
