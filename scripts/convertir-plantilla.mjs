@@ -242,8 +242,42 @@ function escaparTexto(t) {
 }
 
 function emitirHijos(nodo, ambito, ind) {
-  return nodo.hijos.map(h => h.tipo === 'texto' ? emitirTexto(h, ambito, ind) : emitirElemento(h, ambito, ind))
-    .filter(s => s !== '').join('\n');
+  return nodo.hijos.map(h => {
+    if (h.tipo === 'texto') return emitirTexto(h, ambito, ind);
+    if (h.tipo === 'slot') return '  '.repeat(ind) + '{v.' + h.nombre + ' || null}';
+    return emitirElemento(h, ambito, ind);
+  }).filter(s => s !== '').join('\n');
+}
+
+// ---------- puntos de extension ----------
+// La plantilla es generada, asi que los modulos nuevos (venta, subastas,
+// accesorios, tiendas) no se pegan a mano dentro de ella: se enganchan en
+// estos dos huecos. Si un ancla deja de existir en el original, el script
+// falla en vez de emitir una plantilla sin el hueco.
+const RANURAS = [
+  {
+    nombre: '__modulos',
+    porque: 'capa a pantalla completa de los modulos, dentro del marco del telefono',
+    busca: (n) => n.attrs.some(a => a.nombre === 'style' && a.valor.includes('{{ radioPantalla }}')),
+  },
+  {
+    nombre: '__inicioExtra',
+    porque: 'accesos a los modulos al pie de la pantalla Inicio',
+    busca: (n) => n.attrs.some(a => a.nombre === 'data-screen-label' && a.valor === 'Inicio'),
+  },
+];
+
+function insertarRanuras(raiz) {
+  for (const r of RANURAS) {
+    let destino = null;
+    (function buscar(n) {
+      if (destino) return;
+      if (n.tipo === 'elemento' && r.busca(n)) { destino = n; return; }
+      (n.hijos || []).forEach(buscar);
+    })(raiz);
+    if (!destino) throw new Error('ancla sin objetivo (' + r.porque + '): ranura ' + r.nombre);
+    destino.hijos.push({ tipo: 'slot', nombre: r.nombre });
+  }
 }
 
 // ---------- main ----------
@@ -254,6 +288,7 @@ if (ini < 20 || fin < 0) throw new Error('no encuentro el bloque <x-dc> en legac
 const plantilla = html.slice(ini, fin);
 
 const arbol = parsear(plantilla);
+insertarRanuras(arbol);
 const jsx = emitirHijos(arbol, new Set(), 3);
 
 const salida = `// GENERADO por scripts/convertir-plantilla.mjs desde legacy/index.html (v0.0.7).

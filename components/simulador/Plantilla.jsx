@@ -302,6 +302,7 @@ export default function Plantilla(v) {
                         Propietarios verificados, casco incluido y precio cerrado. Pago retenido hasta la entrega.
                       </div>
                     </div>
+                    {v.__inicioExtra || null}
                   </div>
                 </>) : null}
                 {v.esBuscar ? (<>
@@ -2324,6 +2325,7 @@ export default function Plantilla(v) {
               </div>
             </>) : null}
             <div style={{ position: "absolute", bottom: "8px", left: "50%", transform: "translateX(-50%)", width: "134px", height: "5px", borderRadius: "3px", background: v.colorBarra, zIndex: "10", pointerEvents: "none" }} />
+            {v.__modulos || null}
           </div>
         </div>
       </div>
