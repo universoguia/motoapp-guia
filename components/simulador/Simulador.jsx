@@ -12,7 +12,7 @@ const anchoVentana = () => (typeof window === 'undefined' ? 390 : window.innerWi
 const altoVentana = () => (typeof window === 'undefined' ? 844 : window.innerHeight);
 
 export default class Simulador extends React.Component {
-  state = { vw: anchoVentana(), vh: altoVentana(), desde: '', hasta: '', mes: '', vista: 'lista', sesion: false, tab: 'inicio', correo: 'iker@motoapp.com', clave: 'motoapp2026', entrando: false, ciudad: '', categoria: 'Todas', precio: 0, buscarPaso: 'config', buscando: false, selector: false, reservaUsuario: null, fotoIdx: 0, avisoEnvio: '', favoritos: [], listing: null, volverA: 'inicio', verDetalles: false, resumen: false, paso: 'resumen', reservas: [], modo: 'usuario', tabProp: 'resumen', reservaProp: null, chat: null, borrador: '', conversaciones: {}, cuentaActiva: 'u-iker', pubSel: '', pubAbierta: false, mapaFallido: false,
+  state = { vw: anchoVentana(), vh: altoVentana(), rol: 'consumidor', desde: '', hasta: '', mes: '', vista: 'lista', sesion: false, tab: 'inicio', correo: 'iker@motoapp.com', clave: 'motoapp2026', entrando: false, ciudad: '', categoria: 'Todas', precio: 0, buscarPaso: 'config', buscando: false, selector: false, reservaUsuario: null, fotoIdx: 0, avisoEnvio: '', favoritos: [], listing: null, volverA: 'inicio', verDetalles: false, resumen: false, paso: 'resumen', reservas: [], modo: 'usuario', tabProp: 'resumen', reservaProp: null, chat: null, borrador: '', conversaciones: {}, cuentaActiva: 'u-iker', pubSel: '', pubAbierta: false, mapaFallido: false,
     listingsDemo: [], mesAgenda: '', diaAgenda: '', filtroAgenda: 'todas', pasoPub: 1, publicada: '', borradorPub: null };
 
   // Coordenadas de ciudad para las publicaciones creadas en la demo.
@@ -444,6 +444,7 @@ export default class Simulador extends React.Component {
     try { localStorage.removeItem(this.clave1); } catch (e) {}
     this.setState({
       sesion: false, tab: 'inicio', correo: 'iker@motoapp.com', clave: 'motoapp2026', entrando: false,
+      rol: 'consumidor',
       vista: 'lista', ciudad: '', categoria: 'Todas', precio: 0,
       buscarPaso: 'config', buscando: false, selector: false, reservaUsuario: null, fotoIdx: 0, avisoEnvio: '',
       desde: '', hasta: '', mes: this.hoyIso().slice(0, 7), favoritos: [],
@@ -1193,9 +1194,24 @@ export default class Simulador extends React.Component {
       textoEntrar: s.entrando ? 'Entrando…' : 'Iniciar sesión',
       onCorreo: e => this.setState({ correo: e.target.value }),
       onClave: e => this.setState({ clave: e.target.value }),
+      // El rol elegido en el login decide en qué lado de la app cae la sesión.
+      // Entrar como emprendedor reusa cambiarModo('propietario'), el mismo
+      // camino que ya existía en Perfil, para no abrir un segundo recorrido.
+      rolEsConsumidor: s.rol !== 'emprendedor',
+      rolEsEmprendedor: s.rol === 'emprendedor',
+      bordeConsumidor: s.rol !== 'emprendedor' ? '#E10600' : 'rgba(255,255,255,0.2)',
+      fondoConsumidor: s.rol !== 'emprendedor' ? 'rgba(225,6,0,0.16)' : 'rgba(255,255,255,0.06)',
+      bordeEmprendedor: s.rol === 'emprendedor' ? '#E10600' : 'rgba(255,255,255,0.2)',
+      fondoEmprendedor: s.rol === 'emprendedor' ? 'rgba(225,6,0,0.16)' : 'rgba(255,255,255,0.06)',
+      elegirConsumidor: () => this.setState({ rol: 'consumidor' }),
+      elegirEmprendedor: () => this.setState({ rol: 'emprendedor' }),
       onEntrar: () => {
         this.setState({ entrando: true });
-        setTimeout(() => { this.setState({ entrando: false }); this.guardar({ sesion: true, tab: 'inicio' }); }, 650);
+        setTimeout(() => {
+          this.setState({ entrando: false });
+          this.guardar({ sesion: true, tab: 'inicio' });
+          if (this.state.rol === 'emprendedor') this.cambiarModo('propietario');
+        }, 650);
       },
       onSalir: () => this.guardar({ sesion: false, tab: 'inicio' }),
 

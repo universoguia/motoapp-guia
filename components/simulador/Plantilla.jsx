@@ -109,7 +109,30 @@ export default function Plantilla(v) {
                   <div style={{ marginTop: "11px", fontSize: "14.5px", lineHeight: "1.5", color: "rgba(255,255,255,0.72)" }}>
                     Motos de propietarios verificados, con casco, seguro y precio cerrado.
                   </div>
-                  <div style={{ marginTop: "26px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                  <div style={{ marginTop: "24px" }}>
+                    <div style={{ fontSize: "11px", fontWeight: "600", letterSpacing: "0.07em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>
+                      Entrar como
+                    </div>
+                    <div role="group" aria-label="Elegí con qué rol entrar" style={{ marginTop: "9px", display: "flex", gap: "10px" }}>
+                      <button className="dc-focusvisible-1" onClick={v.elegirConsumidor} aria-pressed={v.rolEsConsumidor} style={{ flex: "1", minHeight: "64px", padding: "11px 13px", textAlign: "left", borderRadius: "13px", cursor: "pointer", fontFamily: "inherit", color: "#fff", border: `1px solid ${v.bordeConsumidor}`, background: v.fondoConsumidor }}>
+                        <span style={{ display: "block", fontSize: "13.5px", fontWeight: "700" }}>
+                          Consumidor
+                        </span>
+                        <span style={{ display: "block", marginTop: "3px", fontSize: "11px", lineHeight: "1.35", color: "rgba(255,255,255,0.62)" }}>
+                          Alquilo, compro y pujo
+                        </span>
+                      </button>
+                      <button className="dc-focusvisible-1" onClick={v.elegirEmprendedor} aria-pressed={v.rolEsEmprendedor} style={{ flex: "1", minHeight: "64px", padding: "11px 13px", textAlign: "left", borderRadius: "13px", cursor: "pointer", fontFamily: "inherit", color: "#fff", border: `1px solid ${v.bordeEmprendedor}`, background: v.fondoEmprendedor }}>
+                        <span style={{ display: "block", fontSize: "13.5px", fontWeight: "700" }}>
+                          Emprendedor
+                        </span>
+                        <span style={{ display: "block", marginTop: "3px", fontSize: "11px", lineHeight: "1.35", color: "rgba(255,255,255,0.62)" }}>
+                          Publico y gestiono mis motos
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                  <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
                     <input value={v.correo} onChange={v.onCorreo} placeholder="Correo electrónico" style={{ height: "50px", padding: "0 16px", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.08)", color: "#fff", fontFamily: "inherit", fontSize: "15px", outline: "none", boxSizing: "border-box" }} />
                     <input value={v.clave} onChange={v.onClave} type="password" placeholder="Contraseña" style={{ height: "50px", padding: "0 16px", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.08)", color: "#fff", fontFamily: "inherit", fontSize: "15px", outline: "none", boxSizing: "border-box" }} />
                     <button onClick={v.onEntrar} style={{ height: "52px", marginTop: "4px", border: "none", borderRadius: "12px", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: "pointer" }}>
@@ -150,7 +173,7 @@ export default function Plantilla(v) {
                         {v.inicialUsuario}
                       </button>
                     </div>
-                    <button onClick={v.irBuscar} aria-label="Buscar moto: elegí ciudad y fechas" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "20px", width: "100%", display: "flex", alignItems: "center", gap: "12px", height: "58px", padding: "0 18px", borderRadius: "14px", border: "1px solid #E4E3E0", background: "#fff", boxShadow: "0 6px 18px rgba(14,16,19,0.05)", fontFamily: "inherit", cursor: "pointer", textAlign: "left" }}>
+                    <button className="dc-focusvisible-1" onClick={v.irBuscar} aria-label="Buscar moto: elegí ciudad y fechas" style={{ marginTop: "20px", width: "100%", display: "flex", alignItems: "center", gap: "12px", height: "58px", padding: "0 18px", borderRadius: "14px", border: "1px solid #E4E3E0", background: "#fff", boxShadow: "0 6px 18px rgba(14,16,19,0.05)", fontFamily: "inherit", cursor: "pointer", textAlign: "left" }}>
                       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#E10600" strokeWidth="2" strokeLinecap="round">
                         <circle cx="11" cy="11" r="7.5" />
                         <path d="M21 21l-4.3-4.3" />
@@ -180,7 +203,7 @@ export default function Plantilla(v) {
                         <div style={{ marginTop: "6px", fontSize: "13px", lineHeight: "1.5", color: "#6E747C", textWrap: "pretty" }}>
                           {v.textoSinInicio}
                         </div>
-                        <button onClick={v.irBuscar} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "16px", height: "44px", padding: "0 20px", borderRadius: "11px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "14px", fontWeight: "700", cursor: "pointer" }}>
+                        <button className="dc-focusvisible-1" onClick={v.irBuscar} style={{ marginTop: "16px", height: "44px", padding: "0 20px", borderRadius: "11px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "14px", fontWeight: "700", cursor: "pointer" }}>
                           Buscar moto
                         </button>
                       </div>
@@ -325,7 +348,7 @@ export default function Plantilla(v) {
                       <div role="group" aria-label="Ciudad" style={{ marginTop: "10px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
                         {(v.chipsCiudad || []).map((c, __i) => (
                           <React.Fragment key={c && c.id != null ? c.id : __i}>
-                            <button onClick={c.ir} aria-pressed={c.activo} aria-label={c.etiqueta} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ height: "48px", padding: "0 14px", borderRadius: "12px", border: `1px solid ${c.borde}`, background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "14px", fontWeight: "600", cursor: "pointer" }}>
+                            <button className="dc-focusvisible-1" onClick={c.ir} aria-pressed={c.activo} aria-label={c.etiqueta} style={{ height: "48px", padding: "0 14px", borderRadius: "12px", border: `1px solid ${c.borde}`, background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "14px", fontWeight: "600", cursor: "pointer" }}>
                               {c.nombre}
                             </button>
                           </React.Fragment>
@@ -341,7 +364,7 @@ export default function Plantilla(v) {
                       </div>
                       <div style={{ marginTop: "10px", padding: "14px 12px 12px", borderRadius: "14px", background: "#fff", border: "1px solid #E4E3E0" }}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
-                          <button onClick={v.mesAnterior} aria-label="Mes anterior" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", width: "44px", height: "44px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: v.colorMesAnterior, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                          <button className="dc-focusvisible-1" onClick={v.mesAnterior} aria-label="Mes anterior" style={{ flex: "none", width: "44px", height: "44px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: v.colorMesAnterior, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
                               <path d="M15 5l-7 7 7 7" />
                             </svg>
@@ -349,7 +372,7 @@ export default function Plantilla(v) {
                           <div style={{ fontSize: "14.5px", fontWeight: "600", textTransform: "capitalize" }}>
                             {v.mesTitulo}
                           </div>
-                          <button onClick={v.mesSiguiente} aria-label="Mes siguiente" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", width: "44px", height: "44px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: "#4A4F57", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                          <button className="dc-focusvisible-1" onClick={v.mesSiguiente} aria-label="Mes siguiente" style={{ flex: "none", width: "44px", height: "44px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: "#4A4F57", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
                               <path d="M9 5l7 7-7 7" />
                             </svg>
@@ -367,7 +390,7 @@ export default function Plantilla(v) {
                         <div role="group" aria-label="Elegí fecha de recogida y de devolución" style={{ marginTop: "2px", display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "2px" }}>
                           {(v.celdas || []).map((c, __i) => (
                             <React.Fragment key={c && c.id != null ? c.id : __i}>
-                              <button onClick={c.tocar} disabled={c.bloqueado} aria-label={c.etiqueta} aria-pressed={c.activo} style-focus="outline: 2px solid #E10600; outline-offset: 2px" style={{ height: "44px", border: "none", borderRadius: "10px", background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13.5px", fontWeight: c.peso, cursor: c.cursor }}>
+                              <button className="dc-focusvisible-2" onClick={c.tocar} disabled={c.bloqueado} aria-label={c.etiqueta} aria-pressed={c.activo} style={{ height: "44px", border: "none", borderRadius: "10px", background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13.5px", fontWeight: c.peso, cursor: c.cursor }}>
                                 {c.dia}
                               </button>
                             </React.Fragment>
@@ -388,7 +411,7 @@ export default function Plantilla(v) {
                           </div>
                         </div>
                       </>) : null}
-                      <button onClick={v.verMotos} disabled={v.verMotosBloqueado} aria-label="Ver motos disponibles" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "18px", width: "100%", height: "54px", borderRadius: "12px", border: "none", background: v.colorVerMotos, color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: v.cursorVerMotos }}>
+                      <button className="dc-focusvisible-1" onClick={v.verMotos} disabled={v.verMotosBloqueado} aria-label="Ver motos disponibles" style={{ marginTop: "18px", width: "100%", height: "54px", borderRadius: "12px", border: "none", background: v.colorVerMotos, color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: v.cursorVerMotos }}>
                         {v.textoVerMotos}
                       </button>
                       <div style={{ marginTop: "12px", fontSize: "11.5px", lineHeight: "1.5", color: "#9AA0A8", textAlign: "center" }}>
@@ -405,7 +428,7 @@ export default function Plantilla(v) {
                             {v.contextoConteo}
                           </div>
                         </div>
-                        <button onClick={v.editarBusqueda} aria-label="Editar la búsqueda: ciudad y fechas" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", height: "44px", padding: "0 14px", borderRadius: "11px", border: "1px solid #DAD8D4", background: "#fff", color: "#C00500", fontFamily: "inherit", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}>
+                        <button className="dc-focusvisible-1" onClick={v.editarBusqueda} aria-label="Editar la búsqueda: ciudad y fechas" style={{ flex: "none", height: "44px", padding: "0 14px", borderRadius: "11px", border: "1px solid #DAD8D4", background: "#fff", color: "#C00500", fontFamily: "inherit", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}>
                           Editar búsqueda
                         </button>
                       </div>
@@ -419,7 +442,7 @@ export default function Plantilla(v) {
                           Categoría
                         </div>
                         {v.filtrosActivos ? (<>
-                          <button onClick={v.limpiarFiltros} aria-label="Limpiar los filtros de categoría y precio" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ height: "30px", padding: "0 12px", borderRadius: "999px", border: "1px solid #DAD8D4", background: "#fff", color: "#C00500", fontFamily: "inherit", fontSize: "12px", fontWeight: "700", cursor: "pointer" }}>
+                          <button className="dc-focusvisible-1" onClick={v.limpiarFiltros} aria-label="Limpiar los filtros de categoría y precio" style={{ height: "30px", padding: "0 12px", borderRadius: "999px", border: "1px solid #DAD8D4", background: "#fff", color: "#C00500", fontFamily: "inherit", fontSize: "12px", fontWeight: "700", cursor: "pointer" }}>
                             Limpiar filtros
                           </button>
                         </>) : null}
@@ -428,7 +451,7 @@ export default function Plantilla(v) {
                         <div data-scroll role="group" aria-label="Categoría" style={{ display: "flex", gap: "8px", overflowX: "auto", scrollbarWidth: "none", padding: "0 30px 2px 0" }}>
                           {(v.chipsCategoria || []).map((c, __i) => (
                             <React.Fragment key={c && c.id != null ? c.id : __i}>
-                              <button onClick={c.ir} aria-pressed={c.activo} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", height: "44px", display: "flex", alignItems: "center", gap: "8px", padding: "0 15px", borderRadius: "999px", border: `1px solid ${c.borde}`, background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13.5px", fontWeight: "600", cursor: "pointer" }}>
+                              <button className="dc-focusvisible-1" onClick={c.ir} aria-pressed={c.activo} style={{ flex: "none", height: "44px", display: "flex", alignItems: "center", gap: "8px", padding: "0 15px", borderRadius: "999px", border: `1px solid ${c.borde}`, background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13.5px", fontWeight: "600", cursor: "pointer" }}>
                                 <span style={{ width: "8px", height: "8px", borderRadius: "2px", background: c.punto }} />
                                 {c.nombre}
                               </button>
@@ -448,17 +471,17 @@ export default function Plantilla(v) {
                       <div role="group" aria-label="Precio por día" style={{ marginTop: "10px", display: "flex", gap: "6px" }}>
                         {(v.chipsPrecio || []).map((p, __i) => (
                           <React.Fragment key={p && p.id != null ? p.id : __i}>
-                            <button onClick={p.ir} aria-pressed={p.activo} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "1", minWidth: "0", height: "44px", borderRadius: "10px", border: `1px solid ${p.borde}`, background: p.fondo, color: p.color, fontFamily: "inherit", fontSize: "12.5px", fontWeight: "600", cursor: "pointer", whiteSpace: "nowrap" }}>
+                            <button className="dc-focusvisible-1" onClick={p.ir} aria-pressed={p.activo} style={{ flex: "1", minWidth: "0", height: "44px", borderRadius: "10px", border: `1px solid ${p.borde}`, background: p.fondo, color: p.color, fontFamily: "inherit", fontSize: "12.5px", fontWeight: "600", cursor: "pointer", whiteSpace: "nowrap" }}>
                               {p.etiqueta}
                             </button>
                           </React.Fragment>
                         ))}
                       </div>
                       <div role="group" aria-label="Ver los resultados en lista o en mapa" style={{ marginTop: "20px", display: "flex", gap: "6px", padding: "4px", borderRadius: "11px", background: "#EAE9E6", border: "1px solid #E4E3E0" }}>
-                        <button onClick={v.verLista} aria-pressed={v.esLista} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "1", height: "44px", borderRadius: "8px", border: "none", background: v.fondoLista, color: v.colorLista, fontFamily: "inherit", fontSize: "13.5px", fontWeight: "600", cursor: "pointer" }}>
+                        <button className="dc-focusvisible-1" onClick={v.verLista} aria-pressed={v.esLista} style={{ flex: "1", height: "44px", borderRadius: "8px", border: "none", background: v.fondoLista, color: v.colorLista, fontFamily: "inherit", fontSize: "13.5px", fontWeight: "600", cursor: "pointer" }}>
                           Lista
                         </button>
-                        <button onClick={v.verMapa} aria-pressed={v.esMapa} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "1", height: "44px", borderRadius: "8px", border: "none", background: v.fondoMapa, color: v.colorMapa, fontFamily: "inherit", fontSize: "13.5px", fontWeight: "600", cursor: "pointer" }}>
+                        <button className="dc-focusvisible-1" onClick={v.verMapa} aria-pressed={v.esMapa} style={{ flex: "1", height: "44px", borderRadius: "8px", border: "none", background: v.fondoMapa, color: v.colorMapa, fontFamily: "inherit", fontSize: "13.5px", fontWeight: "600", cursor: "pointer" }}>
                           Mapa
                         </button>
                       </div>
@@ -479,7 +502,7 @@ export default function Plantilla(v) {
                             <div style={{ marginTop: "6px", fontSize: "13px", lineHeight: "1.5", color: "#6E747C" }}>
                               Podés seguir viendo las motos en la lista.
                             </div>
-                            <button onClick={v.verLista} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "14px", height: "44px", padding: "0 20px", borderRadius: "11px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "14px", fontWeight: "700", cursor: "pointer" }}>
+                            <button className="dc-focusvisible-1" onClick={v.verLista} style={{ marginTop: "14px", height: "44px", padding: "0 20px", borderRadius: "11px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "14px", fontWeight: "700", cursor: "pointer" }}>
                               Ver la lista
                             </button>
                           </div>
@@ -489,7 +512,7 @@ export default function Plantilla(v) {
                         <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "14px" }}>
                           {(v.resultados || []).map((b, __i) => (
                             <React.Fragment key={b && b.id != null ? b.id : __i}>
-                              <div onClick={b.abrir} onKeyDown={b.teclas} role="button" tabIndex={0} aria-label={b.etiquetaAbrir} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ display: "flex", gap: "13px", alignItems: "stretch", cursor: "pointer" }}>
+                              <div className="dc-focusvisible-1" onClick={b.abrir} onKeyDown={b.teclas} role="button" tabIndex={0} aria-label={b.etiquetaAbrir} style={{ display: "flex", gap: "13px", alignItems: "stretch", cursor: "pointer" }}>
                                 <div style={{ position: "relative", flex: "none", width: "106px", height: "84px", borderRadius: "12px", overflow: "hidden", background: b.placa }}>
                                   {b.hayFoto ? (<>
                                     <div role="img" aria-label={b.titulo} style={{ position: "absolute", inset: "0", backgroundImage: b.fotoCss, backgroundSize: "cover", backgroundPosition: "center" }} />
@@ -536,11 +559,11 @@ export default function Plantilla(v) {
                               {v.textoSinResultados}
                             </div>
                             <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                              <button onClick={v.editarBusqueda} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ height: "46px", borderRadius: "11px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "14px", fontWeight: "700", cursor: "pointer" }}>
+                              <button className="dc-focusvisible-1" onClick={v.editarBusqueda} style={{ height: "46px", borderRadius: "11px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "14px", fontWeight: "700", cursor: "pointer" }}>
                                 Cambiar ciudad o fechas
                               </button>
                               {v.filtrosActivos ? (<>
-                                <button onClick={v.limpiarFiltros} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ height: "46px", borderRadius: "11px", border: "1px solid #DAD8D4", background: "#fff", color: "#4A4F57", fontFamily: "inherit", fontSize: "14px", fontWeight: "600", cursor: "pointer" }}>
+                                <button className="dc-focusvisible-1" onClick={v.limpiarFiltros} style={{ height: "46px", borderRadius: "11px", border: "1px solid #DAD8D4", background: "#fff", color: "#4A4F57", fontFamily: "inherit", fontSize: "14px", fontWeight: "600", cursor: "pointer" }}>
                                   Limpiar filtros
                                 </button>
                               </>) : null}
@@ -636,7 +659,7 @@ export default function Plantilla(v) {
                       <div style={{ marginTop: "18px", display: "flex", flexDirection: "column", gap: "16px" }}>
                         {(v.reservas || []).map((r, __i) => (
                           <React.Fragment key={r && r.id != null ? r.id : __i}>
-                            <div onClick={r.abrir} onKeyDown={r.teclas} role="button" tabIndex={0} aria-label={r.etiqueta} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ borderRadius: "18px", overflow: "hidden", background: "#fff", border: "1px solid #E4E3E0", boxShadow: "0 8px 24px rgba(14,16,19,0.05)", cursor: "pointer" }}>
+                            <div className="dc-focusvisible-1" onClick={r.abrir} onKeyDown={r.teclas} role="button" tabIndex={0} aria-label={r.etiqueta} style={{ borderRadius: "18px", overflow: "hidden", background: "#fff", border: "1px solid #E4E3E0", boxShadow: "0 8px 24px rgba(14,16,19,0.05)", cursor: "pointer" }}>
                               <div style={{ position: "relative", height: "132px", background: r.placa }}>
                                 {r.hayFoto ? (<>
                                   <div role="img" aria-label={r.titulo} style={{ position: "absolute", inset: "0", backgroundImage: r.fotoCss, backgroundSize: "cover", backgroundPosition: "center" }} />
@@ -687,7 +710,7 @@ export default function Plantilla(v) {
                                     Mensaje
                                   </button>
                                 </div>
-                                <button onClick={r.verComoAnfitrion} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "10px", width: "100%", height: "40px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: "#6E747C", fontFamily: "inherit", fontSize: "12.5px", fontWeight: "600", cursor: "pointer" }}>
+                                <button className="dc-focusvisible-1" onClick={r.verComoAnfitrion} style={{ marginTop: "10px", width: "100%", height: "40px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: "#6E747C", fontFamily: "inherit", fontSize: "12.5px", fontWeight: "600", cursor: "pointer" }}>
                                   Ver esta reserva como 
                                   {r.anfitrion}
                                 </button>
@@ -797,12 +820,12 @@ export default function Plantilla(v) {
                         <div style={{ position: "absolute", inset: "0", background: "linear-gradient(180deg, rgba(11,13,16,0.62) 0%, rgba(11,13,16,0.5) 8%, rgba(11,13,16,0) 30%, rgba(11,13,16,0) 72%, rgba(11,13,16,0.3) 100%)", pointerEvents: "none" }} />
                       </>) : null}
                       {v.f.hayGaleria ? (<>
-                        <button onClick={v.f.anterior} aria-label="Foto anterior" style-focus="outline: 2px solid #fff; outline-offset: 2px" style={{ position: "absolute", top: "50%", left: "14px", transform: "translateY(-50%)", width: "44px", height: "44px", borderRadius: "50%", border: "none", background: "rgba(14,16,19,0.55)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                        <button className="dc-focusvisible-3" onClick={v.f.anterior} aria-label="Foto anterior" style={{ position: "absolute", top: "50%", left: "14px", transform: "translateY(-50%)", width: "44px", height: "44px", borderRadius: "50%", border: "none", background: "rgba(14,16,19,0.55)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M15 5l-7 7 7 7" />
                           </svg>
                         </button>
-                        <button onClick={v.f.siguiente} aria-label="Foto siguiente" style-focus="outline: 2px solid #fff; outline-offset: 2px" style={{ position: "absolute", top: "50%", right: "14px", transform: "translateY(-50%)", width: "44px", height: "44px", borderRadius: "50%", border: "none", background: "rgba(14,16,19,0.55)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                        <button className="dc-focusvisible-3" onClick={v.f.siguiente} aria-label="Foto siguiente" style={{ position: "absolute", top: "50%", right: "14px", transform: "translateY(-50%)", width: "44px", height: "44px", borderRadius: "50%", border: "none", background: "rgba(14,16,19,0.55)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M9 5l7 7-7 7" />
                           </svg>
@@ -813,19 +836,19 @@ export default function Plantilla(v) {
                         <div role="group" aria-label="Elegir foto" style={{ position: "absolute", bottom: "22px", left: "8px", display: "flex", gap: "0" }}>
                           {(v.f.puntos || []).map((p, __i) => (
                             <React.Fragment key={p && p.id != null ? p.id : __i}>
-                              <button onClick={p.ir} aria-label={p.etiqueta} aria-pressed={p.activo} style-focus="outline: 2px solid #fff; outline-offset: 0" style={{ width: "44px", height: "44px", border: "none", background: "none", padding: "0", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                              <button className="dc-focusvisible-4" onClick={p.ir} aria-label={p.etiqueta} aria-pressed={p.activo} style={{ width: "44px", height: "44px", border: "none", background: "none", padding: "0", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                                 <span style={{ display: "block", width: p.ancho, height: "6px", borderRadius: "3px", background: p.color, boxShadow: "0 1px 3px rgba(11,13,16,0.4)" }} />
                               </button>
                             </React.Fragment>
                           ))}
                         </div>
                       </>) : null}
-                      <button onClick={v.cerrarFicha} aria-label="Volver" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ position: "absolute", top: "54px", left: "14px", width: "44px", height: "44px", borderRadius: "50%", border: "none", background: "rgba(255,255,255,0.94)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", boxShadow: "0 2px 10px rgba(0,0,0,0.25)" }}>
+                      <button className="dc-focusvisible-1" onClick={v.cerrarFicha} aria-label="Volver" style={{ position: "absolute", top: "54px", left: "14px", width: "44px", height: "44px", borderRadius: "50%", border: "none", background: "rgba(255,255,255,0.94)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", boxShadow: "0 2px 10px rgba(0,0,0,0.25)" }}>
                         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#14171B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M15 5l-7 7 7 7" />
                         </svg>
                       </button>
-                      <button onClick={v.f.fav} aria-label={v.f.etiquetaFav} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ position: "absolute", top: "54px", right: "14px", width: "44px", height: "44px", borderRadius: "50%", border: "none", background: "rgba(255,255,255,0.94)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", boxShadow: "0 2px 10px rgba(0,0,0,0.25)" }}>
+                      <button className="dc-focusvisible-1" onClick={v.f.fav} aria-label={v.f.etiquetaFav} style={{ position: "absolute", top: "54px", right: "14px", width: "44px", height: "44px", borderRadius: "50%", border: "none", background: "rgba(255,255,255,0.94)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", boxShadow: "0 2px 10px rgba(0,0,0,0.25)" }}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill={v.f.corazonRelleno} stroke={v.f.corazonBorde} strokeWidth="1.8" strokeLinecap="round">
                           <path d="M12 20.3l-1.4-1.3C5 15 2 12.3 2 8.9 2 6.1 4.1 4 6.9 4c1.6 0 3.1.7 4.1 1.9C12.1 4.7 13.6 4 15.2 4 18 4 20 6.1 20 8.9c0 3.4-3 6.1-8.6 11.1z" />
                         </svg>
@@ -914,7 +937,7 @@ export default function Plantilla(v) {
                               {v.f.fechasTexto}
                             </div>
                           </div>
-                          <button onClick={v.abrirSelector} aria-label={v.f.etiquetaFechas} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", height: "44px", padding: "0 14px", borderRadius: "10px", border: "1px solid #DAD8D4", background: "#fff", color: "#C00500", fontFamily: "inherit", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}>
+                          <button className="dc-focusvisible-1" onClick={v.abrirSelector} aria-label={v.f.etiquetaFechas} style={{ flex: "none", height: "44px", padding: "0 14px", borderRadius: "10px", border: "1px solid #DAD8D4", background: "#fff", color: "#C00500", fontFamily: "inherit", fontSize: "13px", fontWeight: "700", cursor: "pointer" }}>
                             {v.f.textoBotonFechas}
                           </button>
                         </div>
@@ -1074,17 +1097,17 @@ export default function Plantilla(v) {
                       </div>
                     </div>
                     {v.f.sinFechas ? (<>
-                      <button onClick={v.abrirSelector} aria-label="Elegir fechas para reservar esta moto" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", height: "52px", padding: "0 26px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: "pointer" }}>
+                      <button className="dc-focusvisible-1" onClick={v.abrirSelector} aria-label="Elegir fechas para reservar esta moto" style={{ flex: "none", height: "52px", padding: "0 26px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: "pointer" }}>
                         Elegir fechas
                       </button>
                     </>) : null}
                     {v.f.disponible ? (<>
-                      <button onClick={v.abrirResumen} aria-label="Reservar esta moto" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", height: "52px", padding: "0 30px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: "pointer" }}>
+                      <button className="dc-focusvisible-1" onClick={v.abrirResumen} aria-label="Reservar esta moto" style={{ flex: "none", height: "52px", padding: "0 30px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: "pointer" }}>
                         Reservar
                       </button>
                     </>) : null}
                     {v.f.noDisponible ? (<>
-                      <button onClick={v.abrirSelector} aria-label="Cambiar las fechas de la reserva" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", height: "52px", padding: "0 22px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#F1F0ED", color: "#6E747C", fontFamily: "inherit", fontSize: "14.5px", fontWeight: "700", cursor: "pointer" }}>
+                      <button className="dc-focusvisible-1" onClick={v.abrirSelector} aria-label="Cambiar las fechas de la reserva" style={{ flex: "none", height: "52px", padding: "0 22px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#F1F0ED", color: "#6E747C", fontFamily: "inherit", fontSize: "14.5px", fontWeight: "700", cursor: "pointer" }}>
                         Cambiar fechas
                       </button>
                     </>) : null}
@@ -1103,7 +1126,7 @@ export default function Plantilla(v) {
                         </div>
                         <div style={{ marginTop: "10px", padding: "14px 12px 12px", borderRadius: "14px", background: "#fff", border: "1px solid #E4E3E0" }}>
                           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
-                            <button onClick={v.mesAnterior} aria-label="Mes anterior" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", width: "44px", height: "44px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: v.colorMesAnterior, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                            <button className="dc-focusvisible-1" onClick={v.mesAnterior} aria-label="Mes anterior" style={{ flex: "none", width: "44px", height: "44px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: v.colorMesAnterior, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M15 5l-7 7 7 7" />
                               </svg>
@@ -1111,7 +1134,7 @@ export default function Plantilla(v) {
                             <div style={{ fontSize: "14.5px", fontWeight: "600", textTransform: "capitalize" }}>
                               {v.mesTitulo}
                             </div>
-                            <button onClick={v.mesSiguiente} aria-label="Mes siguiente" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", width: "44px", height: "44px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: "#4A4F57", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                            <button className="dc-focusvisible-1" onClick={v.mesSiguiente} aria-label="Mes siguiente" style={{ flex: "none", width: "44px", height: "44px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: "#4A4F57", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M9 5l7 7-7 7" />
                               </svg>
@@ -1129,7 +1152,7 @@ export default function Plantilla(v) {
                           <div role="group" aria-label="Elegí fecha de recogida y de devolución" style={{ marginTop: "2px", display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "2px" }}>
                             {(v.celdas || []).map((c, __i) => (
                               <React.Fragment key={c && c.id != null ? c.id : __i}>
-                                <button onClick={c.tocar} disabled={c.bloqueado} aria-label={c.etiqueta} aria-pressed={c.activo} style-focus="outline: 2px solid #E10600; outline-offset: 2px" style={{ height: "44px", border: "none", borderRadius: "10px", background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13.5px", fontWeight: c.peso, cursor: c.cursor }}>
+                                <button className="dc-focusvisible-2" onClick={c.tocar} disabled={c.bloqueado} aria-label={c.etiqueta} aria-pressed={c.activo} style={{ height: "44px", border: "none", borderRadius: "10px", background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13.5px", fontWeight: c.peso, cursor: c.cursor }}>
                                   {c.dia}
                                 </button>
                               </React.Fragment>
@@ -1142,7 +1165,7 @@ export default function Plantilla(v) {
                         <div aria-live="polite" style={{ marginTop: "10px", fontSize: "12.5px", lineHeight: "1.5", color: "#6E747C" }}>
                           {v.avisoSelector}
                         </div>
-                        <button onClick={v.aplicarFechas} disabled={v.aplicarBloqueado} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "14px", width: "100%", height: "54px", borderRadius: "12px", border: "none", background: v.colorAplicar, color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: v.cursorAplicar }}>
+                        <button className="dc-focusvisible-1" onClick={v.aplicarFechas} disabled={v.aplicarBloqueado} style={{ marginTop: "14px", width: "100%", height: "54px", borderRadius: "12px", border: "none", background: v.colorAplicar, color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: v.cursorAplicar }}>
                           Aplicar fechas
                         </button>
                       </div>
@@ -1323,18 +1346,18 @@ export default function Plantilla(v) {
                               {v.reservaCodigo}
                             </div>
                           </div>
-                          <button onClick={v.verMiReserva} aria-label="Ver mi reserva" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "22px", width: "100%", height: "54px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: "pointer" }}>
+                          <button className="dc-focusvisible-1" onClick={v.verMiReserva} aria-label="Ver mi reserva" style={{ marginTop: "22px", width: "100%", height: "54px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: "pointer" }}>
                             Ver mi reserva
                           </button>
                           <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
-                            <button onClick={v.escribirAlAnfitrion} aria-label="Escribir al anfitrión" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "1", minWidth: "0", height: "48px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#fff", color: "#14171B", fontFamily: "inherit", fontSize: "14px", fontWeight: "700", cursor: "pointer" }}>
+                            <button className="dc-focusvisible-1" onClick={v.escribirAlAnfitrion} aria-label="Escribir al anfitrión" style={{ flex: "1", minWidth: "0", height: "48px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#fff", color: "#14171B", fontFamily: "inherit", fontSize: "14px", fontWeight: "700", cursor: "pointer" }}>
                               Escribir al anfitrión
                             </button>
-                            <button onClick={v.volverAlInicio} aria-label="Volver al inicio" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "1", minWidth: "0", height: "48px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#fff", color: "#4A4F57", fontFamily: "inherit", fontSize: "14px", fontWeight: "600", cursor: "pointer" }}>
+                            <button className="dc-focusvisible-1" onClick={v.volverAlInicio} aria-label="Volver al inicio" style={{ flex: "1", minWidth: "0", height: "48px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#fff", color: "#4A4F57", fontFamily: "inherit", fontSize: "14px", fontWeight: "600", cursor: "pointer" }}>
                               Volver al inicio
                             </button>
                           </div>
-                          <button onClick={v.verUltimaComoAnfitrion} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "10px", width: "100%", height: "44px", borderRadius: "12px", border: "1px solid #E9E8E5", background: "none", color: "#6E747C", fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
+                          <button className="dc-focusvisible-1" onClick={v.verUltimaComoAnfitrion} style={{ marginTop: "10px", width: "100%", height: "44px", borderRadius: "12px", border: "1px solid #E9E8E5", background: "none", color: "#6E747C", fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
                             Ver como 
                             {v.anfitrionUltima}
                           </button>
@@ -1361,10 +1384,10 @@ export default function Plantilla(v) {
                                mientras terminabas el pago. No se ha cobrado nada.
                             </div>
                           </div>
-                          <button onClick={v.cambiarFechasDesdeError} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "20px", width: "100%", height: "54px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: "pointer" }}>
+                          <button className="dc-focusvisible-1" onClick={v.cambiarFechasDesdeError} style={{ marginTop: "20px", width: "100%", height: "54px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15.5px", fontWeight: "700", cursor: "pointer" }}>
                             Cambiar fechas
                           </button>
-                          <button onClick={v.volverAResultados} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "10px", width: "100%", height: "48px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#fff", color: "#4A4F57", fontFamily: "inherit", fontSize: "14.5px", fontWeight: "600", cursor: "pointer" }}>
+                          <button className="dc-focusvisible-1" onClick={v.volverAResultados} style={{ marginTop: "10px", width: "100%", height: "48px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#fff", color: "#4A4F57", fontFamily: "inherit", fontSize: "14.5px", fontWeight: "600", cursor: "pointer" }}>
                             Volver a los resultados
                           </button>
                         </>) : null}
@@ -1376,7 +1399,7 @@ export default function Plantilla(v) {
               {v.detalleUsuarioAbierto ? (<>
                 <div data-screen-label="Detalle de mi reserva" style={{ position: "absolute", inset: "0", zIndex: "6", background: "#F4F4F3", display: "flex", flexDirection: "column" }}>
                   <div style={{ flex: "none", display: "flex", alignItems: "center", gap: "12px", padding: "46px 18px 14px", background: "#fff", borderBottom: "1px solid #E9E8E5" }}>
-                    <button onClick={v.cerrarDetalleUsuario} aria-label="Volver a Mis reservas" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", width: "44px", height: "44px", borderRadius: "50%", border: "1px solid #E4E3E0", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                    <button className="dc-focusvisible-1" onClick={v.cerrarDetalleUsuario} aria-label="Volver a Mis reservas" style={{ flex: "none", width: "44px", height: "44px", borderRadius: "50%", border: "1px solid #E4E3E0", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14171B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M15 5l-7 7 7 7" />
                       </svg>
@@ -1436,10 +1459,10 @@ export default function Plantilla(v) {
                     <div style={{ marginTop: "12px", fontSize: "11.5px", lineHeight: "1.5", color: "#9AA0A8" }}>
                       Reserva simulada: no se ha cobrado ningún importe ni retenido ninguna fianza real.
                     </div>
-                    <button onClick={v.ru.abrirChat} aria-label="Escribir al anfitrión" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "16px", width: "100%", height: "52px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15px", fontWeight: "700", cursor: "pointer" }}>
+                    <button className="dc-focusvisible-1" onClick={v.ru.abrirChat} aria-label="Escribir al anfitrión" style={{ marginTop: "16px", width: "100%", height: "52px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15px", fontWeight: "700", cursor: "pointer" }}>
                       Mensaje al anfitrión
                     </button>
-                    <button onClick={v.ru.abrirFicha} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "10px", width: "100%", height: "48px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#fff", color: "#4A4F57", fontFamily: "inherit", fontSize: "14.5px", fontWeight: "600", cursor: "pointer" }}>
+                    <button className="dc-focusvisible-1" onClick={v.ru.abrirFicha} style={{ marginTop: "10px", width: "100%", height: "48px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#fff", color: "#4A4F57", fontFamily: "inherit", fontSize: "14.5px", fontWeight: "600", cursor: "pointer" }}>
                       Ver la ficha de la moto
                     </button>
                   </div>
@@ -1499,7 +1522,7 @@ export default function Plantilla(v) {
                       <div style={{ marginTop: "22px", fontSize: "15.5px", fontWeight: "700", letterSpacing: "-0.02em" }}>
                         Próxima entrega
                       </div>
-                      <div onClick={v.proxima.abrir} onKeyDown={v.proxima.teclas} role="button" tabIndex={0} aria-label={v.proxima.etiqueta} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "12px", borderRadius: "16px", background: "#fff", border: "1px solid #E4E3E0", overflow: "hidden", boxShadow: "0 8px 24px rgba(14,16,19,0.05)", cursor: "pointer" }}>
+                      <div className="dc-focusvisible-1" onClick={v.proxima.abrir} onKeyDown={v.proxima.teclas} role="button" tabIndex={0} aria-label={v.proxima.etiqueta} style={{ marginTop: "12px", borderRadius: "16px", background: "#fff", border: "1px solid #E4E3E0", overflow: "hidden", boxShadow: "0 8px 24px rgba(14,16,19,0.05)", cursor: "pointer" }}>
                         <div style={{ position: "relative", height: "124px", background: v.proxima.placa }}>
                           {v.proxima.hayFoto ? (<>
                             <div role="img" aria-label={v.proxima.modelo} style={{ position: "absolute", inset: "0", backgroundImage: v.proxima.fotoCss, backgroundSize: "cover", backgroundPosition: "center" }} />
@@ -1573,7 +1596,7 @@ export default function Plantilla(v) {
                     <div style={{ marginTop: "12px", display: "flex", flexDirection: "column", gap: "12px" }}>
                       {(v.misMotos || []).map((m, __i) => (
                         <React.Fragment key={m && m.id != null ? m.id : __i}>
-                          <div onClick={m.abrir} onKeyDown={m.teclas} role="button" tabIndex={0} aria-label={m.etiqueta} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ display: "flex", gap: "13px", alignItems: "center", borderRadius: "16px", background: "#fff", border: "1px solid #E4E3E0", padding: "12px", cursor: "pointer" }}>
+                          <div className="dc-focusvisible-1" onClick={m.abrir} onKeyDown={m.teclas} role="button" tabIndex={0} aria-label={m.etiqueta} style={{ display: "flex", gap: "13px", alignItems: "center", borderRadius: "16px", background: "#fff", border: "1px solid #E4E3E0", padding: "12px", cursor: "pointer" }}>
                             <div style={{ position: "relative", flex: "none", width: "86px", height: "68px", borderRadius: "11px", overflow: "hidden", background: m.placa }}>
                               {m.hayFoto ? (<>
                                 <div role="img" aria-label={m.titulo} style={{ position: "absolute", inset: "0", backgroundImage: m.fotoCss, backgroundSize: "cover", backgroundPosition: "center" }} />
@@ -1656,7 +1679,7 @@ export default function Plantilla(v) {
                       <div data-scroll style={{ marginTop: "14px", display: "flex", gap: "8px", overflowX: "auto", scrollbarWidth: "none" }}>
                         {(v.chipsAgenda || []).map((c, __i) => (
                           <React.Fragment key={c && c.id != null ? c.id : __i}>
-                            <button onClick={c.ir} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", height: "36px", padding: "0 14px", borderRadius: "999px", border: `1px solid ${c.borde}`, background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
+                            <button className="dc-focusvisible-1" onClick={c.ir} style={{ flex: "none", height: "36px", padding: "0 14px", borderRadius: "999px", border: `1px solid ${c.borde}`, background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
                               {c.etiqueta}
                             </button>
                           </React.Fragment>
@@ -1665,7 +1688,7 @@ export default function Plantilla(v) {
                     </>) : null}
                     <div style={{ marginTop: "14px", padding: "14px 12px 12px", borderRadius: "16px", background: "#fff", border: "1px solid #E4E3E0" }}>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
-                        <button onClick={v.agendaMesAnterior} aria-label="Mes anterior" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", width: "36px", height: "36px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: "#4A4F57", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                        <button className="dc-focusvisible-1" onClick={v.agendaMesAnterior} aria-label="Mes anterior" style={{ flex: "none", width: "36px", height: "36px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: "#4A4F57", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M15 5l-7 7 7 7" />
                           </svg>
@@ -1673,7 +1696,7 @@ export default function Plantilla(v) {
                         <div style={{ fontSize: "14.5px", fontWeight: "600", textTransform: "capitalize" }}>
                           {v.mesAgendaTitulo}
                         </div>
-                        <button onClick={v.agendaMesSiguiente} aria-label="Mes siguiente" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", width: "36px", height: "36px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: "#4A4F57", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                        <button className="dc-focusvisible-1" onClick={v.agendaMesSiguiente} aria-label="Mes siguiente" style={{ flex: "none", width: "36px", height: "36px", borderRadius: "10px", border: "1px solid #E4E3E0", background: "#fff", color: "#4A4F57", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M9 5l7 7-7 7" />
                           </svg>
@@ -1691,7 +1714,7 @@ export default function Plantilla(v) {
                       <div style={{ marginTop: "2px", display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "2px" }}>
                         {(v.celdasAgenda || []).map((c, __i) => (
                           <React.Fragment key={c && c.id != null ? c.id : __i}>
-                            <button onClick={c.tocar} disabled={c.bloqueado} aria-label={c.etiqueta} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ position: "relative", height: "42px", border: "none", borderRadius: "10px", background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13.5px", fontWeight: c.peso, cursor: c.cursor }}>
+                            <button className="dc-focusvisible-1" onClick={c.tocar} disabled={c.bloqueado} aria-label={c.etiqueta} style={{ position: "relative", height: "42px", border: "none", borderRadius: "10px", background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13.5px", fontWeight: c.peso, cursor: c.cursor }}>
                               {c.dia}
                               <span style={{ position: "absolute", bottom: "6px", left: "50%", transform: "translateX(-50%)", width: "5px", height: "5px", borderRadius: "50%", background: c.punto }} />
                             </button>
@@ -1708,7 +1731,7 @@ export default function Plantilla(v) {
                     <div style={{ marginTop: "12px", display: "flex", flexDirection: "column", gap: "12px" }}>
                       {(v.reservasAgenda || []).map((r, __i) => (
                         <React.Fragment key={r && r.id != null ? r.id : __i}>
-                          <div onClick={r.abrir} onKeyDown={r.teclas} role="button" tabIndex={0} aria-label={r.etiqueta} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ display: "flex", gap: "13px", alignItems: "center", borderRadius: "16px", background: "#fff", border: "1px solid #E4E3E0", padding: "12px", cursor: "pointer" }}>
+                          <div className="dc-focusvisible-1" onClick={r.abrir} onKeyDown={r.teclas} role="button" tabIndex={0} aria-label={r.etiqueta} style={{ display: "flex", gap: "13px", alignItems: "center", borderRadius: "16px", background: "#fff", border: "1px solid #E4E3E0", padding: "12px", cursor: "pointer" }}>
                             <div style={{ position: "relative", flex: "none", width: "78px", height: "64px", borderRadius: "11px", overflow: "hidden", background: r.placa }}>
                               {r.hayFoto ? (<>
                                 <div role="img" aria-label={r.titulo} style={{ position: "absolute", inset: "0", backgroundImage: r.fotoCss, backgroundSize: "cover", backgroundPosition: "center" }} />
@@ -1823,7 +1846,7 @@ export default function Plantilla(v) {
                             <div data-scroll style={{ marginTop: "8px", display: "flex", gap: "8px", overflowX: "auto", scrollbarWidth: "none" }}>
                               {(v.form.categorias || []).map((c, __i) => (
                                 <React.Fragment key={c && c.id != null ? c.id : __i}>
-                                  <button onClick={c.ir} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", height: "36px", padding: "0 14px", borderRadius: "999px", border: `1px solid ${c.borde}`, background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
+                                  <button className="dc-focusvisible-1" onClick={c.ir} style={{ flex: "none", height: "36px", padding: "0 14px", borderRadius: "999px", border: `1px solid ${c.borde}`, background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
                                     {c.nombre}
                                   </button>
                                 </React.Fragment>
@@ -1851,7 +1874,7 @@ export default function Plantilla(v) {
                             <div style={{ marginTop: "8px", display: "flex", gap: "6px" }}>
                               {(v.form.transmisiones || []).map((t, __i) => (
                                 <React.Fragment key={t && t.id != null ? t.id : __i}>
-                                  <button onClick={t.ir} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "1", height: "42px", borderRadius: "11px", border: `1px solid ${t.borde}`, background: t.fondo, color: t.color, fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
+                                  <button className="dc-focusvisible-1" onClick={t.ir} style={{ flex: "1", height: "42px", borderRadius: "11px", border: `1px solid ${t.borde}`, background: t.fondo, color: t.color, fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
                                     {t.nombre}
                                   </button>
                                 </React.Fragment>
@@ -1869,7 +1892,7 @@ export default function Plantilla(v) {
                             <div data-scroll style={{ marginTop: "8px", display: "flex", gap: "8px", overflowX: "auto", scrollbarWidth: "none" }}>
                               {(v.form.ciudades || []).map((c, __i) => (
                                 <React.Fragment key={c && c.id != null ? c.id : __i}>
-                                  <button onClick={c.ir} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", height: "36px", padding: "0 14px", borderRadius: "999px", border: `1px solid ${c.borde}`, background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
+                                  <button className="dc-focusvisible-1" onClick={c.ir} style={{ flex: "none", height: "36px", padding: "0 14px", borderRadius: "999px", border: `1px solid ${c.borde}`, background: c.fondo, color: c.color, fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
                                     {c.nombre}
                                   </button>
                                 </React.Fragment>
@@ -1883,7 +1906,7 @@ export default function Plantilla(v) {
                             <div data-scroll style={{ marginTop: "8px", display: "flex", gap: "8px", overflowX: "auto", scrollbarWidth: "none" }}>
                               {(v.form.zonas || []).map((z, __i) => (
                                 <React.Fragment key={z && z.id != null ? z.id : __i}>
-                                  <button onClick={z.ir} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", height: "36px", padding: "0 14px", borderRadius: "999px", border: `1px solid ${z.borde}`, background: z.fondo, color: z.color, fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
+                                  <button className="dc-focusvisible-1" onClick={z.ir} style={{ flex: "none", height: "36px", padding: "0 14px", borderRadius: "999px", border: `1px solid ${z.borde}`, background: z.fondo, color: z.color, fontFamily: "inherit", fontSize: "13px", fontWeight: "600", cursor: "pointer" }}>
                                     {z.nombre}
                                   </button>
                                 </React.Fragment>
@@ -1983,11 +2006,11 @@ export default function Plantilla(v) {
                       </>) : null}
                       <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
                         {v.hayAtras ? (<>
-                          <button onClick={v.pasoAtras} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", width: "110px", height: "52px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#fff", color: "#4A4F57", fontFamily: "inherit", fontSize: "14.5px", fontWeight: "600", cursor: "pointer" }}>
+                          <button className="dc-focusvisible-1" onClick={v.pasoAtras} style={{ flex: "none", width: "110px", height: "52px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#fff", color: "#4A4F57", fontFamily: "inherit", fontSize: "14.5px", fontWeight: "600", cursor: "pointer" }}>
                             Atrás
                           </button>
                         </>) : null}
-                        <button onClick={v.pasoSiguiente} disabled={v.pasoBloqueado} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "1", height: "52px", borderRadius: "12px", border: "none", background: v.colorSiguiente, color: "#fff", fontFamily: "inherit", fontSize: "15px", fontWeight: "700", cursor: v.cursorSiguiente }}>
+                        <button className="dc-focusvisible-1" onClick={v.pasoSiguiente} disabled={v.pasoBloqueado} style={{ flex: "1", height: "52px", borderRadius: "12px", border: "none", background: v.colorSiguiente, color: "#fff", fontFamily: "inherit", fontSize: "15px", fontWeight: "700", cursor: v.cursorSiguiente }}>
                           {v.textoSiguiente}
                         </button>
                       </div>
@@ -2008,7 +2031,7 @@ export default function Plantilla(v) {
                       <div style={{ marginTop: "18px", borderRadius: "16px", background: "#fff", border: "1px solid #E4E3E0", overflow: "hidden" }}>
                         {(v.hilos || []).map((c, __i) => (
                           <React.Fragment key={c && c.id != null ? c.id : __i}>
-                            <div onClick={c.abrir} onKeyDown={c.teclas} role="button" tabIndex={0} aria-label={c.etiqueta} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ display: "flex", gap: "12px", alignItems: "center", padding: "14px 16px", borderBottom: "1px solid #EDECE9", cursor: "pointer" }}>
+                            <div className="dc-focusvisible-1" onClick={c.abrir} onKeyDown={c.teclas} role="button" tabIndex={0} aria-label={c.etiqueta} style={{ display: "flex", gap: "12px", alignItems: "center", padding: "14px 16px", borderBottom: "1px solid #EDECE9", cursor: "pointer" }}>
                               <div style={{ flex: "none", width: "42px", height: "42px", borderRadius: "50%", background: "#0E1013", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", fontWeight: "700" }}>
                                 {c.inicial}
                               </div>
@@ -2086,7 +2109,7 @@ export default function Plantilla(v) {
                         </React.Fragment>
                       ))}
                     </div>
-                    <button onClick={v.aUsuario} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "18px", width: "100%", height: "52px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15px", fontWeight: "700", cursor: "pointer" }}>
+                    <button className="dc-focusvisible-1" onClick={v.aUsuario} style={{ marginTop: "18px", width: "100%", height: "52px", borderRadius: "12px", border: "none", background: "#E10600", color: "#fff", fontFamily: "inherit", fontSize: "15px", fontWeight: "700", cursor: "pointer" }}>
                       {v.textoSalirAnfitrion}
                     </button>
                     <div style={{ marginTop: "12px", fontSize: "12px", lineHeight: "1.5", color: "#9AA0A8", textAlign: "center" }}>
@@ -2164,7 +2187,7 @@ export default function Plantilla(v) {
               {v.pubAbierta ? (<>
                 <div data-screen-label="Anfitrión · Publicación" style={{ position: "absolute", inset: "0", zIndex: "6", background: "#F4F4F3", display: "flex", flexDirection: "column" }}>
                   <div style={{ flex: "none", display: "flex", alignItems: "center", gap: "12px", padding: "46px 18px 14px", background: "#fff", borderBottom: "1px solid #E9E8E5" }}>
-                    <button onClick={v.cerrarPub} aria-label="Volver" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", width: "38px", height: "38px", borderRadius: "50%", border: "1px solid #E4E3E0", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                    <button className="dc-focusvisible-1" onClick={v.cerrarPub} aria-label="Volver" style={{ flex: "none", width: "38px", height: "38px", borderRadius: "50%", border: "1px solid #E4E3E0", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14171B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M15 5l-7 7 7 7" />
                       </svg>
@@ -2241,7 +2264,7 @@ export default function Plantilla(v) {
                       <div style={{ marginTop: "6px", fontSize: "13px", color: "#6E747C" }}>
                         {v.pubReservasTexto}
                       </div>
-                      <button onClick={v.irAgenda} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ marginTop: "14px", width: "100%", height: "44px", borderRadius: "11px", border: "1px solid #DAD8D4", background: "#fff", color: "#14171B", fontFamily: "inherit", fontSize: "13.5px", fontWeight: "600", cursor: "pointer" }}>
+                      <button className="dc-focusvisible-1" onClick={v.irAgenda} style={{ marginTop: "14px", width: "100%", height: "44px", borderRadius: "11px", border: "1px solid #DAD8D4", background: "#fff", color: "#14171B", fontFamily: "inherit", fontSize: "13.5px", fontWeight: "600", cursor: "pointer" }}>
                         Ver en la agenda
                       </button>
                     </div>
@@ -2251,7 +2274,7 @@ export default function Plantilla(v) {
               <div style={{ flex: "none", display: "flex", alignItems: "stretch", height: "78px", padding: `0 6px ${v.padNav}`, background: "rgba(255,255,255,0.97)", borderTop: "1px solid #E9E8E5" }}>
                 {(v.navProp || []).map((n, __i) => (
                   <React.Fragment key={n && n.id != null ? n.id : __i}>
-                    <button onClick={n.ir} aria-label={n.etiqueta} style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "1", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "5px", paddingTop: "10px", border: "none", background: "none", color: n.color, fontFamily: "inherit", cursor: "pointer" }}>
+                    <button className="dc-focusvisible-1" onClick={n.ir} aria-label={n.etiqueta} style={{ flex: "1", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "5px", paddingTop: "10px", border: "none", background: "none", color: n.color, fontFamily: "inherit", cursor: "pointer" }}>
                       <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
                         <path d={n.d} />
                       </svg>
@@ -2316,7 +2339,7 @@ export default function Plantilla(v) {
                 </div>
                 <div style={{ flex: "none", display: "flex", alignItems: "center", gap: "10px", padding: `10px 16px ${v.padCompositor}`, background: "#fff", borderTop: "1px solid #E9E8E5" }}>
                   <input ref={v.inputRef} value={v.borrador} onChange={v.onBorrador} onKeyDown={v.teclaChat} enterKeyHint="send" aria-label="Escribí un mensaje" placeholder="Escribí un mensaje" style={{ flex: "1", minWidth: "0", height: "48px", padding: "0 15px", borderRadius: "12px", border: "1px solid #DAD8D4", background: "#F8F7F5", color: "#14171B", fontFamily: "inherit", fontSize: "15px", outline: "none", boxSizing: "border-box" }} />
-                  <button onClick={v.enviar} disabled={v.envioBloqueado} aria-label="Enviar mensaje" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style={{ flex: "none", width: "48px", height: "48px", borderRadius: "12px", border: "none", background: v.colorEnviar, display: "flex", alignItems: "center", justifyContent: "center", cursor: v.cursorEnviar }}>
+                  <button className="dc-focusvisible-1" onClick={v.enviar} disabled={v.envioBloqueado} aria-label="Enviar mensaje" style={{ flex: "none", width: "48px", height: "48px", borderRadius: "12px", border: "none", background: v.colorEnviar, display: "flex", alignItems: "center", justifyContent: "center", cursor: v.cursorEnviar }}>
                     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M4 12h15M13 6l6 6-6 6" />
                     </svg>

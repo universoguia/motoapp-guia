@@ -1,0 +1,7 @@
+/* GENERADO por scripts/convertir-plantilla.mjs. No editar a mano.
+   Equivalen a los atributos style-* de legacy/index.html, que el runtime
+   de canvas convertia en pseudo-clases y JSX no sabe expresar inline. */
+.dc-focusvisible-1:focus-visible { outline: 2px solid #E10600; outline-offset: 3px; }
+.dc-focusvisible-2:focus-visible { outline: 2px solid #E10600; outline-offset: 2px; }
+.dc-focusvisible-3:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.dc-focusvisible-4:focus-visible { outline: 2px solid #fff; outline-offset: 0; }

@@ -161,6 +161,22 @@ function nombreAttr(n) {
   return n;
 }
 
+// ---------- pseudo-clases (style-focus, style-hover, ...) ----------
+// El runtime de canvas convertia `style-focus="..."` en una clase generada con
+// su regla :focus-visible. JSX no admite pseudo-clases en el atributo style,
+// asi que se emiten como clases reales a un CSS aparte. Sin esto los 62 focos
+// de teclado de v0.0.7 quedarian mudos.
+const pseudoClases = new Map();
+
+function claseDePseudo(pseudo, css) {
+  const cssPseudo = pseudo === 'focus' ? 'focus-visible' : pseudo;
+  const clave = cssPseudo + '|' + css;
+  if (!pseudoClases.has(clave)) {
+    pseudoClases.set(clave, { clase: 'dc-' + cssPseudo.replace(/[^a-z]/g, '') + '-' + (pseudoClases.size + 1), cssPseudo, css });
+  }
+  return pseudoClases.get(clave).clase;
+}
+
 function emitirElemento(nodo, ambito, ind) {
   const pad = '  '.repeat(ind);
 
@@ -189,9 +205,14 @@ function emitirElemento(nodo, ambito, ind) {
   }
 
   const partes = [];
+  const clases = [];
   for (const a of nodo.attrs) {
     const n = a.nombre;
     if (n.startsWith('hint-')) continue;                       // solo para el editor de canvas
+    if (n.startsWith('style-')) {                              // pseudo-clase: va a CSS, no a JSX
+      clases.push(claseDePseudo(n.slice(6), a.valor));
+      continue;
+    }
     if (a.valor === null) { partes.push(nombreAttr(n)); continue; }
     if (n === 'style') { partes.push('style={' + estilo(a.valor, ambito) + '}'); continue; }
     const jn = nombreAttr(n);
@@ -207,6 +228,7 @@ function emitirElemento(nodo, ambito, ind) {
     if (jn === 'tabIndex') { partes.push('tabIndex={' + Number(a.valor) + '}'); continue; }
     partes.push(jn + '=' + JSON.stringify(a.valor));
   }
+  if (clases.length) partes.unshift('className=' + JSON.stringify(clases.join(' ')));
   const attrs = partes.length ? ' ' + partes.join(' ') : '';
 
   if (VACIOS.has(nodo.nombre) || nodo.hijos.length === 0) {
@@ -308,3 +330,17 @@ const destino = path.join(RAIZ, 'components', 'simulador', 'Plantilla.jsx');
 fs.mkdirSync(path.dirname(destino), { recursive: true });
 fs.writeFileSync(destino, salida);
 console.log('OK ->', destino, '(' + salida.split('\n').length + ' lineas)');
+
+// Las pseudo-clases que el runtime de canvas resolvia solo.
+const reglas = [...pseudoClases.values()]
+  .map((p) => '.' + p.clase + ':' + p.cssPseudo + ' { ' + p.css.replace(/;\s*$/, '') + '; }')
+  .join('\n');
+const destinoCss = path.join(RAIZ, 'components', 'simulador', 'plantilla.css');
+fs.writeFileSync(
+  destinoCss,
+  '/* GENERADO por scripts/convertir-plantilla.mjs. No editar a mano.\n'
+  + '   Equivalen a los atributos style-* de legacy/index.html, que el runtime\n'
+  + '   de canvas convertia en pseudo-clases y JSX no sabe expresar inline. */\n'
+  + reglas + '\n'
+);
+console.log('OK ->', destinoCss, '(' + pseudoClases.size + ' pseudo-clases)');

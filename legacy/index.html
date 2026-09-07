@@ -95,7 +95,21 @@
             <div style="font-size: 30px; font-weight: 700; line-height: 1.14; letter-spacing: -0.03em; text-wrap: pretty">La moto que quieres,<br>los días que la necesitas.</div>
             <div style="margin-top: 11px; font-size: 14.5px; line-height: 1.5; color: rgba(255,255,255,0.72)">Motos de propietarios verificados, con casco, seguro y precio cerrado.</div>
 
-            <div style="margin-top: 26px; display: flex; flex-direction: column; gap: 10px">
+            <div style="margin-top: 24px">
+              <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.5)">Entrar como</div>
+              <div role="group" aria-label="Elegí con qué rol entrar" style="margin-top: 9px; display: flex; gap: 10px">
+                <button onClick="{{ elegirConsumidor }}" aria-pressed="{{ rolEsConsumidor }}" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style="flex: 1; min-height: 64px; padding: 11px 13px; text-align: left; border-radius: 13px; cursor: pointer; font-family: inherit; color: #fff; border: 1px solid {{ bordeConsumidor }}; background: {{ fondoConsumidor }}">
+                  <span style="display: block; font-size: 13.5px; font-weight: 700">Consumidor</span>
+                  <span style="display: block; margin-top: 3px; font-size: 11px; line-height: 1.35; color: rgba(255,255,255,0.62)">Alquilo, compro y pujo</span>
+                </button>
+                <button onClick="{{ elegirEmprendedor }}" aria-pressed="{{ rolEsEmprendedor }}" style-focus="outline: 2px solid #E10600; outline-offset: 3px" style="flex: 1; min-height: 64px; padding: 11px 13px; text-align: left; border-radius: 13px; cursor: pointer; font-family: inherit; color: #fff; border: 1px solid {{ bordeEmprendedor }}; background: {{ fondoEmprendedor }}">
+                  <span style="display: block; font-size: 13.5px; font-weight: 700">Emprendedor</span>
+                  <span style="display: block; margin-top: 3px; font-size: 11px; line-height: 1.35; color: rgba(255,255,255,0.62)">Publico y gestiono mis motos</span>
+                </button>
+              </div>
+            </div>
+
+            <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px">
               <input value="{{ correo }}" onChange="{{ onCorreo }}" placeholder="Correo electrónico" style="height: 50px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); color: #fff; font-family: inherit; font-size: 15px; outline: none; box-sizing: border-box">
               <input value="{{ clave }}" onChange="{{ onClave }}" type="password" placeholder="Contraseña" style="height: 50px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); color: #fff; font-family: inherit; font-size: 15px; outline: none; box-sizing: border-box">
               <button onClick="{{ onEntrar }}" style="height: 52px; margin-top: 4px; border: none; border-radius: 12px; background: #E10600; color: #fff; font-family: inherit; font-size: 15.5px; font-weight: 700; cursor: pointer">{{ textoEntrar }}</button>
@@ -1473,7 +1487,7 @@
   &quot;mostrarTotales&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Demo&quot; }
 }">
 class Component extends DCLogic {
-  state = { vw: window.innerWidth, vh: window.innerHeight, desde: '', hasta: '', mes: '', vista: 'lista', sesion: false, tab: 'inicio', correo: 'iker@motoapp.com', clave: 'motoapp2026', entrando: false, ciudad: '', categoria: 'Todas', precio: 0, buscarPaso: 'config', buscando: false, selector: false, reservaUsuario: null, fotoIdx: 0, avisoEnvio: '', favoritos: [], listing: null, volverA: 'inicio', verDetalles: false, resumen: false, paso: 'resumen', reservas: [], modo: 'usuario', tabProp: 'resumen', reservaProp: null, chat: null, borrador: '', conversaciones: {}, cuentaActiva: 'u-iker', pubSel: '', pubAbierta: false, mapaFallido: false,
+  state = { vw: window.innerWidth, vh: window.innerHeight, rol: 'consumidor', desde: '', hasta: '', mes: '', vista: 'lista', sesion: false, tab: 'inicio', correo: 'iker@motoapp.com', clave: 'motoapp2026', entrando: false, ciudad: '', categoria: 'Todas', precio: 0, buscarPaso: 'config', buscando: false, selector: false, reservaUsuario: null, fotoIdx: 0, avisoEnvio: '', favoritos: [], listing: null, volverA: 'inicio', verDetalles: false, resumen: false, paso: 'resumen', reservas: [], modo: 'usuario', tabProp: 'resumen', reservaProp: null, chat: null, borrador: '', conversaciones: {}, cuentaActiva: 'u-iker', pubSel: '', pubAbierta: false, mapaFallido: false,
     listingsDemo: [], mesAgenda: '', diaAgenda: '', filtroAgenda: 'todas', pasoPub: 1, publicada: '', borradorPub: null };
 
   // Coordenadas de ciudad para las publicaciones creadas en la demo.
@@ -1904,6 +1918,7 @@ class Component extends DCLogic {
     try { localStorage.removeItem(this.clave1); } catch (e) {}
     this.setState({
       sesion: false, tab: 'inicio', correo: 'iker@motoapp.com', clave: 'motoapp2026', entrando: false,
+      rol: 'consumidor',
       vista: 'lista', ciudad: '', categoria: 'Todas', precio: 0,
       buscarPaso: 'config', buscando: false, selector: false, reservaUsuario: null, fotoIdx: 0, avisoEnvio: '',
       desde: '', hasta: '', mes: this.hoyIso().slice(0, 7), favoritos: [],
@@ -2653,9 +2668,24 @@ class Component extends DCLogic {
       textoEntrar: s.entrando ? 'Entrando…' : 'Iniciar sesión',
       onCorreo: e => this.setState({ correo: e.target.value }),
       onClave: e => this.setState({ clave: e.target.value }),
+      // El rol elegido en el login decide en qué lado de la app cae la sesión.
+      // Entrar como emprendedor reusa cambiarModo('propietario'), el mismo
+      // camino que ya existía en Perfil, para no abrir un segundo recorrido.
+      rolEsConsumidor: s.rol !== 'emprendedor',
+      rolEsEmprendedor: s.rol === 'emprendedor',
+      bordeConsumidor: s.rol !== 'emprendedor' ? '#E10600' : 'rgba(255,255,255,0.2)',
+      fondoConsumidor: s.rol !== 'emprendedor' ? 'rgba(225,6,0,0.16)' : 'rgba(255,255,255,0.06)',
+      bordeEmprendedor: s.rol === 'emprendedor' ? '#E10600' : 'rgba(255,255,255,0.2)',
+      fondoEmprendedor: s.rol === 'emprendedor' ? 'rgba(225,6,0,0.16)' : 'rgba(255,255,255,0.06)',
+      elegirConsumidor: () => this.setState({ rol: 'consumidor' }),
+      elegirEmprendedor: () => this.setState({ rol: 'emprendedor' }),
       onEntrar: () => {
         this.setState({ entrando: true });
-        setTimeout(() => { this.setState({ entrando: false }); this.guardar({ sesion: true, tab: 'inicio' }); }, 650);
+        setTimeout(() => {
+          this.setState({ entrando: false });
+          this.guardar({ sesion: true, tab: 'inicio' });
+          if (this.state.rol === 'emprendedor') this.cambiarModo('propietario');
+        }, 650);
       },
       onSalir: () => this.guardar({ sesion: false, tab: 'inicio' }),
 
